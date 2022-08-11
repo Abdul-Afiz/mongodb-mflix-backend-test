@@ -1,7 +1,7 @@
 import UsersDAO from "../src/dao/usersDAO"
 const testUser = {
   name: "Magical Mr. Mistoffelees",
-  email: "magicz@cats.com",
+  email: "magic@ckays.com",
   password: "somehashedpw",
 }
 
@@ -34,6 +34,7 @@ describe("User Management", () => {
     // we should be able to get the user
     const user = await UsersDAO.getUser(testUser.email)
     // for comparison, we delete the _id key returned from Mongo
+    // console.log({ user })
     delete user._id
     expect(user).toEqual(testUser)
   })
@@ -49,6 +50,7 @@ describe("User Management", () => {
     const actual = await UsersDAO.loginUser(testUser.email, sessionUser.jwt)
     expect(actual.success).toBeTruthy()
     const sessionResult = await UsersDAO.getUserSession(testUser.email)
+    console.log({ sessionResult })
     delete sessionResult._id
     expect(sessionResult).toEqual(sessionUser)
   })
